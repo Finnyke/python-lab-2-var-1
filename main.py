@@ -13,14 +13,11 @@ while not(os.path.exists(path)):
 img = Image.open(path)
 R, G, B = img.split()
 r = numpy.array(R)
-print("For R band:\nmax value = " + str(r.max()) + "\nmin value = " + str(r.min()) + "\naverage value = " +
-      str(r.mean()))
+print("For R band:\nmax value = " + str(r.max()) + "\nmin value = " + str(r.min()) + "\naverage value = " + str(r.mean()))
 g = numpy.array(G)
-print("For G band:\nmax value = " + str(g.max()) + "\nmin value = " + str(g.min()) + "\naverage value = " +
-      str(g.mean()))
+print("For G band:\nmax value = " + str(g.max()) + "\nmin value = " + str(g.min()) + "\naverage value = " + str(g.mean()))
 b = numpy.array(B)
-print("For B band:\nmax value = " + str(b.max()) + "\nmin value = " + str(b.min()) + "\naverage value = " +
-      str(b.mean()))
+print("For B band:\nmax value = " + str(b.max()) + "\nmin value = " + str(b.min()) + "\naverage value = " + str(b.mean()))
 
 arr = numpy.array(img)
 for line in arr:
