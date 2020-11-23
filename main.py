@@ -20,21 +20,21 @@ b = numpy.array(B)
 print("For B band:\nmax value = " + str(b.max()) + "\nmin value = " + str(b.min()) + "\naverage value = " + str(b.mean()))
 
 arr = numpy.array(img)
-for line in arr:
-    for pixel in line:
-        val = pixel[0] * 0.299 + pixel[1] * 0.587 + pixel[2] * 0.114
-        pixel[0] = pixel[1] = pixel[2] = val
-img_gs = Image.fromarray(arr)
+arr_L = numpy.zeros((arr.shape[0], arr.shape[1]), dtype=numpy.uint8)
+for i in range(0, arr.shape[0]):
+    for j in range(0, arr.shape[1]):
+        arr_L[i][j] += arr[i][j][0] * 0.299 + arr[i][j][1] * 0.587 + arr[i][j][2] * 0.114
+img_gs = Image.fromarray(arr_L, 'L')
 img_gs.save("Lena_grayscaled.png")
 
 x = numpy.arange(0, 256)
 y = numpy.zeros(256)
-for line in arr:
-    for pixel in line:
-        if pixel[0] < 50:
-            pixel[0] = pixel[1] = pixel[2] = 0
-        y[pixel[0]] += 1
-img_th = Image.fromarray(arr)
+for i in range(0, arr_L.shape[0]):
+    for j in range(0, arr_L.shape[1]):
+        if arr_L[i][j] < 50:
+            arr_L[i][j] = 0
+        y[arr_L[i][j]] += 1
+img_th = Image.fromarray(arr_L, 'L')
 img_th.save("Lena_thresholded.png")
 
 pyplot.figure(figsize=(12, 6))
