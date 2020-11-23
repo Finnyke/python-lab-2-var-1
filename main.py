@@ -1,4 +1,4 @@
-# Lab 1, variant 3
+# Lab 2, variant 1
 # Maxim Pupykin, group 6312
 
 from PIL import Image
