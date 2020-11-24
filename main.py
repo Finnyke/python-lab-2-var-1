@@ -7,7 +7,7 @@ import numpy
 import os
 
 path = input("Enter path to the image: ")
-while not(os.path.exists(path)):
+while not(os.path.exists(path) and os.path.splitext(path)[1].lower() == ".png"):
     path = input("Error: invalid path. Enter valid path to the image: ")
 
 img = Image.open(path)
