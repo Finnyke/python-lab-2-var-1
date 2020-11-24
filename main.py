@@ -19,21 +19,19 @@ print("For G band:\nmax value = " + str(g.max()) + "\nmin value = " + str(g.min(
 b = numpy.array(B)
 print("For B band:\nmax value = " + str(b.max()) + "\nmin value = " + str(b.min()) + "\naverage value = " + str(b.mean()))
 
+cfs = numpy.array([0.299, 0.587, 0.114])
 arr = numpy.array(img)
 arr_L = numpy.zeros((arr.shape[0], arr.shape[1]), dtype=numpy.uint8)
-for i in range(0, arr.shape[0]):
-    for j in range(0, arr.shape[1]):
-        arr_L[i][j] += arr[i][j][0] * 0.299 + arr[i][j][1] * 0.587 + arr[i][j][2] * 0.114
+arr_L[0:, 0:] = numpy.uint8(arr[0:, 0:, 0] * cfs[0] + arr[0:, 0:, 1] * cfs[1] + arr[0:, 0:, 2] * cfs[2])
 img_gs = Image.fromarray(arr_L, 'L')
 img_gs.save("Lena_grayscaled.png")
 
 x = numpy.arange(0, 256)
 y = numpy.zeros(256)
-for i in range(0, arr_L.shape[0]):
-    for j in range(0, arr_L.shape[1]):
-        if arr_L[i][j] < 50:
-            arr_L[i][j] = 0
-        y[arr_L[i][j]] += 1
+ind = arr_L < 50
+arr_L[ind] = 0
+cnt = numpy.unique(arr_L, return_counts=True)
+y[cnt[0]] = cnt[1]
 img_th = Image.fromarray(arr_L, 'L')
 img_th.save("Lena_thresholded.png")
 
