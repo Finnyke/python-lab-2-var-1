@@ -22,7 +22,7 @@ print("For B band:\nmax value = " + str(b.max()) + "\nmin value = " + str(b.min(
 cfs = np.array([0.299, 0.587, 0.114])
 arr = np.array(img)
 arr = arr * cfs
-arr_out = np.uint8(arr[:, :, 0] + arr[:, :, 1] + arr[:, :, 2])
+arr_out = np.uint8(np.apply_along_axis(sum, 2, arr))
 img_gs = Image.fromarray(arr_out, 'L')
 img_gs.save("Lena_grayscaled.png")
 
